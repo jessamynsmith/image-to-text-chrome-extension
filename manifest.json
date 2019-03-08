@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "AutoScribe",
+  "description": "Extract text from images.",
+  "version": "1",
+  "author": "Jessamyn Smith",
+  "browser_action": {
+    "default_title": "Scribe"
+  },
+  "permissions": [
+    "contextMenus",
+    "tabs"
+  ],
+  "background": {
+    "page": "background.html"
+  }
+}
