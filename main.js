@@ -1,6 +1,6 @@
 var getTextFromImage = function (imageUrl) {
   var apiUrl = "https://auto-scribe-backend.herokuapp.com/api/v1/ocr/url/";
-  alert('Getting text for imageUrl: ' + imageUrl);
+  // alert('Getting text for imageUrl: ' + imageUrl);
 
   var request = new XMLHttpRequest();
 
