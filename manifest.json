@@ -9,7 +9,8 @@
   },
   "permissions": [
     "contextMenus",
-    "tabs"
+    "tabs",
+    "<all_urls>"
   ],
   "background": {
     "page": "background.html"
