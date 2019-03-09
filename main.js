@@ -7,8 +7,10 @@ var getTextFromImage = function (imageUrl) {
   request.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE) {
       if (this.status === 200) {
-        var text = this.responseText;
-        alert(text);
+        var imageText = this.responseText;
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {imageText: imageText});
+        });
       } else {
         alert('error status: ' + this.status);
       }
@@ -31,7 +33,7 @@ chrome.contextMenus.create({
 
 // "activeTab" permission is sufficient for this:
 chrome.contextMenus.onClicked.addListener(function(info, tab){
-  chrome.tabs.executeScript(tab.id, {file: "getDOM.js"});
+  chrome.tabs.executeScript(tab.id, {file: "manipulateDOM.js"});
 });
 
 chrome.runtime.onMessage.addListener(

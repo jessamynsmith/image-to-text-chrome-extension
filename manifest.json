@@ -7,6 +7,17 @@
   "browser_action": {
     "default_title": "Scribe"
   },
+  "content_scripts": [
+    {
+      "css": [
+        "overlay.css"
+      ],
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://m.facebook.com/*"
+      ]
+    }
+  ],
   "permissions": [
     "contextMenus",
     "tabs",
