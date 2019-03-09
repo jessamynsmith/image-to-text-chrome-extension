@@ -23,20 +23,8 @@ function removeOverlay() {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log('dom listener', request.imageText);
-    var dataNode = document.querySelector('[data-text="true"]');
-    var parent = dataNode.parentElement;
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-    }
-    var textNode = document.createElement('span');
-    textNode.setAttribute("data-text", "true");
-  
-    var imageTextContent = document.createTextNode(request.imageText);
-    textNode.appendChild(imageTextContent);
-    parent.appendChild(textNode);
-    
     removeOverlay();
+    alert(request.imageText);
   });
 
 var selection = document.getSelection();
