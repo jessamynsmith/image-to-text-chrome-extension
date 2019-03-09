@@ -6,14 +6,15 @@ var getTextFromImage = function (imageUrl) {
 
   request.onreadystatechange = function () { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE) {
+      var imageText = '';
       if (this.status === 200) {
-        var imageText = this.responseText;
-        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-          chrome.tabs.sendMessage(tabs[0].id, {imageText: imageText});
-        });
+        imageText = this.responseText;
       } else {
-        alert('Failed to get text, response status: ' + this.status);
+        imageText = 'Failed to get text, response status: ' + this.status;
       }
+      chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {imageText: imageText});
+      });
     }
   };
 
