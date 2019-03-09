@@ -2,8 +2,6 @@ var overlayId = 'overlayId';
 var overlayStyleName = 'overlay';
 
 function displayOverlay(text) {
-  console.log('Overlaying test: ', text);
-  
   removeOverlay();
   
   var overlayNode = document.createElement('div');
@@ -12,7 +10,6 @@ function displayOverlay(text) {
   
   var newContent = document.createTextNode(text);
   overlayNode.appendChild(newContent);
-  console.log(overlayNode);
   
   document.getElementsByTagName('body')[0].appendChild(overlayNode);
 }
@@ -28,7 +25,17 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log('dom listener', request.imageText);
     var dataNode = document.querySelector('[data-text="true"]');
-    dataNode.innerHTML += request.imageText;
+    var parent = dataNode.parentElement;
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+    var textNode = document.createElement('span');
+    textNode.setAttribute("data-text", "true");
+  
+    var imageTextContent = document.createTextNode(request.imageText);
+    textNode.appendChild(imageTextContent);
+    parent.appendChild(textNode);
+    
     removeOverlay();
   });
 
@@ -42,6 +49,6 @@ var imageUrl = imageDescendent.dataset.ploi;
 displayOverlay('Getting text from image...');
 // If text is successfully extracted, overlay will be removed.
 // Set timeout in case extraction fails.
-setTimeout(removeOverlay, 32000);
+setTimeout(removeOverlay, 12000);
 
 chrome.runtime.sendMessage({imageUrl: imageUrl});
