@@ -1,5 +1,6 @@
 var overlayId = 'overlayId';
 var overlayStyleName = 'overlay';
+var alerted = false;
 
 function displayOverlay(text) {
   removeOverlay();
@@ -23,20 +24,40 @@ function removeOverlay() {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    removeOverlay();
-    alert(request.imageText);
+    if (!alerted) {
+      alerted = true;
+      removeOverlay();
+      alert(request.imageText);
+    }
   });
 
 var selection = document.getSelection();
+var focusNode = selection.focusNode;
 
-// Facebook share screen
-var ancestor = selection.focusNode.closest('[data-testid="react-composer-root"]');
-var imageDescendent = ancestor.querySelector('[data-ploi^="http"]');
-var imageUrl = imageDescendent.dataset.ploi;
+var imageUrl = null;
+if (focusNode) {
+  if (focusNode.firstChild && focusNode.firstChild.tagName === "IMG") {
+    // Right-click of an image
+    imageUrl = focusNode.firstChild.getAttribute("src");
+  } else {
+    // Facebook share screen
+    var ancestor = focusNode.closest('[data-testid="react-composer-root"]');
+    if (ancestor) {
+      var imageDescendent = ancestor.querySelector('[data-ploi^="http"]');
+      imageUrl = imageDescendent.dataset.ploi;
+    }
+  }
+}
 
-displayOverlay('Getting text from image...');
-// If text is successfully extracted, overlay will be removed.
-// Set timeout in case extraction fails.
-setTimeout(removeOverlay, 12000);
-
-chrome.runtime.sendMessage({imageUrl: imageUrl});
+if (imageUrl) {
+  displayOverlay('Getting text from image...');
+  // If text is successfully extracted, overlay will be removed.
+  // Set timeout in case extraction fails.
+  setTimeout(removeOverlay, 12000);
+  
+  alerted = false;
+  
+  chrome.runtime.sendMessage({imageUrl: imageUrl});
+} else {
+  alert("Unable to extra text from this element");
+}
