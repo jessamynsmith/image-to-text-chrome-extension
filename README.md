@@ -8,7 +8,7 @@ Like my work? Tip me! https://www.paypal.me/jessamynsmith
 
 ### Installation
 
-1. Go to the Releases tab and download the zip for the desired version.
+1. Go to the Releases tab and download the Source code zip for the desired version.
 1. Unzip the downloaded zip file.
 1. In your browser, go to [chrome://extensions/](chrome://extensions/)
 1. Ensure Developer Mode is on.
