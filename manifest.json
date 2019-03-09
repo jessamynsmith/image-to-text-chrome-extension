@@ -14,7 +14,8 @@
       ],
       "matches": [
         "https://www.facebook.com/*",
-        "https://m.facebook.com/*"
+        "https://m.facebook.com/*",
+        "https://www.google.com/*"
       ]
     }
   ],
