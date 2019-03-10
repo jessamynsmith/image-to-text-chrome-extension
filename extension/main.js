@@ -1,5 +1,5 @@
 var getTextFromImage = function (imageUrl) {
-  var apiUrl = "https://auto-scribe.herokuapp.com/api/v1/ocr/url/";
+  var apiUrl = "https://auto-scribe.mrgp52bugw.us-west-2.elasticbeanstalk.com/api/v1/ocr/url/";
   // alert('Getting text for imageUrl: ' + imageUrl);
 
   var request = new XMLHttpRequest();
