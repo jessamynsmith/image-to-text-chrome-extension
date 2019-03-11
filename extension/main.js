@@ -35,9 +35,14 @@ chrome.contextMenus.create({
 // "activeTab" permission is sufficient for this:
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   chrome.tabs.executeScript(tab.id, {file: "manipulateDOM.js"});
+  
+  var srcUrl = null;
   if (info.hasOwnProperty('srcUrl')) {
+    srcUrl = info.srcUrl;
+  }
+  if (srcUrl) {  
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {'srcUrl': info.srcUrl});
+        chrome.tabs.sendMessage(tabs[0].id, {'srcUrl': srcUrl});
       });
   }
 });

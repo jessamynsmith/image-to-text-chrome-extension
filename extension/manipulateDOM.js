@@ -57,7 +57,7 @@ var selection = document.getSelection();
 var focusNode = selection.focusNode;
 
 var imageUrl = null;
-if (focusNode) {
+if (focusNode && focusNode.nodeName === "DIV") {
   // Facebook share screen
   var ancestor = focusNode.closest('[data-testid="react-composer-root"]');
   if (ancestor) {
