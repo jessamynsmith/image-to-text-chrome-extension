@@ -61,8 +61,8 @@ if (focusNode && focusNode.nodeName === "DIV") {
   // Facebook share screen
   var ancestor = focusNode.closest('[data-testid="react-composer-root"]');
   if (ancestor) {
-    var imageDescendent = ancestor.querySelector('[data-ploi^="http"]');
-    imageUrl = imageDescendent.dataset.ploi;
+    var imageDescendant = ancestor.querySelector('[data-ploi^="http"]');
+    imageUrl = imageDescendant.dataset.ploi;
   }
 
   displayOverlayAndSetTimer(imageUrl);
