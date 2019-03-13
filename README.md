@@ -1,4 +1,4 @@
-# auto-scribe-extension
+# image-to-text-chrome-extension
 
 Google Chrome extension that gets text from images.
 
@@ -29,7 +29,7 @@ You should now see "Get Text" in your right-click context menus.
 
 Fork the project on github and git clone your fork, e.g.:
 
-    git clone https://github.com/<username>/auto-scribe-extension.git
+    git clone https://github.com/<username>/image-to-text-chrome-extension.git
 
 See above installation directions, but navigate to the source code instead.
 
