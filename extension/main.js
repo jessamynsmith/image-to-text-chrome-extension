@@ -1,5 +1,5 @@
 var getTextFromImage = function (imageUrl) {
-  var apiUrl = "http://image-to-text-env.b3n5jnhe58.us-west-2.elasticbeanstalk.com/api/v1/ocr/url/";
+  var apiUrl = "http://image-to-text.b3n5jnhe58.us-west-2.elasticbeanstalk.com/api/v1/ocr/url/";
   // alert('Getting text for imageUrl: ' + imageUrl);
 
   var request = new XMLHttpRequest();
