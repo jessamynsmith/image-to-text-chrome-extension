@@ -1,10 +1,10 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Image to Text",
   "description": "Extract text from images.",
   "version": "1",
   "author": "Jessamyn Smith",
-  "browser_action": {
+  "action": {
     "default_title": "Image to Text"
   },
   "content_scripts": [
@@ -20,6 +20,9 @@
   "permissions": [
     "contextMenus",
     "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
     "<all_urls>"
   ],
   "icons": {
@@ -28,6 +31,9 @@
     "48": "favicon-48x48.png"
   },
   "background": {
-    "page": "background.html"
+    "service_worker": "main.js"
+  },
+  "externally_connectable": {
+    "matches": ["*://*.google.com/*"]
   }
 }

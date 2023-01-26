@@ -1,40 +1,40 @@
 var getTextFromImage = function (imageUrl) {
-  var apiUrl = "http://image-to-text.b3n5jnhe58.us-west-2.elasticbeanstalk.com/api/v1/ocr/url/";
-  // alert('Getting text for imageUrl: ' + imageUrl);
-
-  var request = new XMLHttpRequest();
-
-  request.onreadystatechange = function () { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE) {
-      var imageText = '';
-      if (this.status === 200) {
-        imageText = this.responseText;
-      } else {
-        imageText = 'Failed to get text, response status: ' + this.status;
-      }
-      chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {imageText: imageText});
-      });
-    }
+  var apiUrl = "http://165.227.42.38:5000/api/v1/ocr/url/";
+  // console.log('Getting text for imageUrl: ' + imageUrl);
+  
+  const form = new FormData();
+  form.append('url', imageUrl);
+  const fetchParams = {
+    method: 'POST',
+    body: form
   };
 
-  // Open a new connection, using the POST request on the URL endpoint
-  request.open('POST', apiUrl, true);
-
-  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-  // Send request
-  request.send('url=' + encodeURIComponent(imageUrl));
+  fetch(apiUrl, fetchParams)
+  .then((response) => response.text())
+  .then((data) => {
+    console.log('data', data);
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {imageText: data});
+    });
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 };
 
 chrome.contextMenus.create({
+  id: 'get_text_item',
   title: "Get Text",
   contexts: ["all"]
 });
 
 // "activeTab" permission is sufficient for this:
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  chrome.tabs.executeScript(tab.id, {file: "manipulateDOM.js"});
+  
+  chrome.scripting.executeScript({
+    target: {tabId: tab.id, allFrames: true},
+    files: ['manipulateDOM.js'],
+  });
   
   var srcUrl = null;
   if (info.hasOwnProperty('srcUrl')) {
