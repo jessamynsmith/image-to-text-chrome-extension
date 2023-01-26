@@ -12,7 +12,7 @@ Like my work? Tip me! https://www.paypal.me/jessamynsmith
 1. Unzip the downloaded zip file.
 1. In your browser, go to [chrome://extensions/](chrome://extensions/)
 1. Ensure Developer Mode is on.
-1. Click Load Unpacked, navigate to the directory you unzipped earlier, and Select it.
+1. Click Load Unpacked, navigate to the extension directory in the directory you unzipped earlier, and Select it.
 
 You should now see "Get Text" in your right-click context menus.
 
